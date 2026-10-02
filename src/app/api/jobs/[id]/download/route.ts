@@ -6,7 +6,7 @@ export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 export async function GET(
-  _req: Request,
+  req: Request,
   ctx: { params: Promise<{ id: string }> }
 ) {
   const { id } = await ctx.params;
@@ -28,7 +28,7 @@ export async function GET(
       status: 200,
       headers: {
         "Content-Type": "video/mp4",
-        "Content-Disposition": `attachment; filename="${title || "movie"}-${id.slice(0, 8)}.mp4"`,
+        "Content-Disposition": `${new URL(req.url).searchParams.get("inline") ? "inline" : "attachment"}; filename="${title || "movie"}-${id.slice(0, 8)}.mp4"`,
         "Content-Length": String(data.length),
         "Cache-Control": "no-store",
       },

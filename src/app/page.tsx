@@ -2,11 +2,17 @@ import MovieGenerator from "@/components/MovieGenerator";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-[radial-gradient(ellipse_at_top,_#2e1065_0%,_#09090b_55%)]">
+    <main className="page">
       <MovieGenerator />
-      <footer className="mx-auto max-w-5xl px-4 pb-10 text-center text-xs text-zinc-600">
-        Default path needs no paid API keys. Install ffmpeg. Optional: espeak for
-        TTS, Ollama for LLM scripts, VIDEO_MODEL_URL for self-hosted video.
+      <footer className="foot">
+        <p>
+          The default pipeline needs no paid API keys, only <b>ffmpeg</b>. Optional extras: <b>espeak-ng</b> for narration,{" "}
+          <b>Ollama</b> (<code>OLLAMA_URL</code>) for LLM scripts, and <code>VIDEO_MODEL_URL</code> for a self-hosted video model.
+        </p>
+        <p>
+          Built by <a href="https://dave-4u.github.io/">Dave Adegboro</a> ·{" "}
+          <a href="https://github.com/Dave-4u/ai-movie-generator">source</a>
+        </p>
       </footer>
     </main>
   );

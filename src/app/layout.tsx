@@ -1,35 +1,21 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Big_Shoulders, Courier_Prime, Albert_Sans } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+const display = Big_Shoulders({ variable: "--font-display", subsets: ["latin"], weight: ["600", "800", "900"] });
+const script = Courier_Prime({ variable: "--font-script", subsets: ["latin"], weight: ["400", "700"] });
+const body = Albert_Sans({ variable: "--font-body", subsets: ["latin"], weight: ["400", "500", "600", "700"] });
 
 export const metadata: Metadata = {
-  title: "AI Movie Generator",
-  description:
-    "Free offline-first AI movie pipeline: synopsis → script → shots → clips → MP4",
+  title: "Reelwright · AI Movie Generator",
+  description: "Turn a story idea into a script, a timed shot list, clips, and one MP4, using free and offline-first tools.",
+  icons: { icon: "/favicon.ico" },
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
-      </body>
+    <html lang="en" className={`${display.variable} ${script.variable} ${body.variable}`}>
+      <body>{children}</body>
     </html>
   );
 }

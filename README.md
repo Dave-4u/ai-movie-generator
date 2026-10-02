@@ -1,10 +1,29 @@
-# AI Movie Generator
+# Reelwright · AI Movie Generator
 
-Fully **free / offline-first** MVP web app: paste a story idea → automated **script + timed shot list → per-shot clips → one MP4**.
+Write a paragraph about a story. Reelwright turns it into a short screenplay, a timed shot list, one clip per shot, and a single MP4 you can download. It runs on free tools only (Node + ffmpeg), so you can try it on a laptop with no GPU and no API keys.
 
-> **Honesty:** Real one-shot “generate a finished hour-long film” products don’t exist in a trustworthy free stack. This app is an **automated scene pipeline** that targets up to ~60 minutes by planning many short shots and stitching them. The default **demo adapter** produces colored title slides (optional TTS) so you always get a real MP4 without a GPU or paid API keys. Swap in a self-hosted open video model for actual generated footage.
+I built it for people who want to prototype short films, explainers, or storyboards fast, and as a clean example of a multi-stage media pipeline (script → plan → render → stitch) with a job queue and a live progress UI.
 
-**Repo:** https://github.com/Dave-4u/ai-movie-generator
+> **Straight talk:** the default **demo adapter** renders title-card slides (with narration if `espeak` is installed), not AI footage. Point `VIDEO_MODEL_URL` at a self-hosted open video model to get real generated shots. Nobody offers a trustworthy free "make me a finished hour-long film" button, and this app doesn't pretend to.
+
+| Writing the pitch | Rolling | That's a wrap |
+|---|---|---|
+| ![Slate form](docs/img/screenshot.png) | ![Progress and storyboard](docs/img/screenshot-progress.png) | ![Finished cut with player](docs/img/screenshot-done.png) |
+
+### What the UI does
+- A clapperboard "slate" form: idea shuffler, runtime chips (30s to 60m), frame picker (16:9 / 9:16 / 1:1), and a choice of camera crew (demo or self-hosted model)
+- **Ctrl/⌘ + Enter** rolls camera from anywhere in the form
+- A film-strip progress bar with step pills (script → shot list → clips N/M → stitch)
+- A storyboard that fills in shot by shot, and a screenplay-formatted script tab
+- An inline player for the finished MP4, plus a download button
+- Responsive, keyboard friendly, visible focus states, and colors that pass contrast checks
+
+### One-command start
+```bash
+./run.sh          # install, build, serve on http://localhost:3000
+./run.sh dev      # hot-reload dev server
+./run.sh test     # unit + stitch smoke tests
+```
 
 ## Features
 
@@ -40,7 +59,7 @@ npm install
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000). Paste a synopsis, pick duration / aspect, hit **Generate movie**.
+Open [http://localhost:3000](http://localhost:3000). Paste a synopsis, pick duration / aspect, hit **Roll camera**.
 
 ### Scripts
 
@@ -128,6 +147,16 @@ VIDEO_MODEL_URL=http://127.0.0.1:8000
 
 No paid keys are required for the default path.
 
+## Tech stack
+Next.js 15 (App Router) · React 19 · TypeScript · Tailwind v4 + hand-written CSS · ffmpeg · optional Ollama / espeak-ng
+
+## Roadmap
+- [ ] Move the queue into a separate worker so long renders survive restarts
+- [ ] Parallel clip rendering on a GPU pool
+- [ ] Edit individual shots and re-render only those
+- [ ] Background music bed and subtitles (SRT) in the final cut
+- [ ] Hosted demo with a tiny 30s cap
+
 ## License
 
-MIT — see repository; use freely.
+MIT, see [LICENSE](LICENSE).
