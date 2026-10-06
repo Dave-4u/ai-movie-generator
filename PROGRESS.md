@@ -1,3 +1,4 @@
+# PROGRESS
 
 ## 2026-10-07 — dependency patch refresh (scan of Dave's repos)
 - next 15.5.26 -> 15.5.27, eslint-config-next 15.5.26 -> 15.5.27, react / react-dom 19.1.0 -> 19.1.9 (same minor line: patch/security fixes only).
